@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BuilderDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="companyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="speciality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="services" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="pricing" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="role_id" Type="Int32" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Company_Role" FromRole="Company" ToRole="Role" />
+    <NavigationProperty Name="CompanyLocalities" Relationship="Self.FK_CompanyLocality_Company" FromRole="Company" ToRole="CompanyLocality" />
+    <NavigationProperty Name="CompanyTags" Relationship="Self.FK_CompanyTag_Company" FromRole="Company" ToRole="CompanyTag" />
+    <NavigationProperty Name="Images" Relationship="Self.FK_Image_Company" FromRole="Company" ToRole="Image" />
+    <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Company" FromRole="Company" ToRole="Reservation" />
+    <NavigationProperty Name="Terms" Relationship="Self.FK_Term_Company" FromRole="Company" ToRole="Term" />
+  </EntityType>
+  <EntityType Name="CompanyLocality">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="company_id" Type="Int32" Nullable="false" />
+    <Property Name="locality_id" Type="Int32" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Company" Relationship="Self.FK_CompanyLocality_Company" FromRole="CompanyLocality" ToRole="Company" />
+    <NavigationProperty Name="Locality" Relationship="Self.FK_CompanyLocality_Locality" FromRole="CompanyLocality" ToRole="Locality" />
+  </EntityType>
+  <EntityType Name="CompanyTag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tag_id" Type="Int32" Nullable="false" />
+    <Property Name="company_id" Type="Int32" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Company" Relationship="Self.FK_CompanyTag_Company" FromRole="CompanyTag" ToRole="Company" />
+    <NavigationProperty Name="Tag" Relationship="Self.FK_CompanyTag_Tag" FromRole="CompanyTag" ToRole="Tag" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="role_id" Type="Int32" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Customer_Role" FromRole="Customer" ToRole="Role" />
+    <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Customer" FromRole="Customer" ToRole="Reservation" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="link" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="company_id" Type="Int32" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Company" Relationship="Self.FK_Image_Company" FromRole="Image" ToRole="Company" />
+  </EntityType>
+  <EntityType Name="Locality">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="province" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CompanyLocalities" Relationship="Self.FK_CompanyLocality_Locality" FromRole="Locality" ToRole="CompanyLocality" />
+  </EntityType>
+  <EntityType Name="Opinion">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="gradeValue" Type="Int32" />
+    <Property Name="adminAccept" Type="Int32" />
+    <Property Name="reservation_id" Type="Int32" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Reservation" Relationship="Self.FK_Opinion_Reservation" FromRole="Opinion" ToRole="Reservation" />
+  </EntityType>
+  <EntityType Name="Reservation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="company_id" Type="Int32" Nullable="false" />
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="approval" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="firstConversDate" Type="DateTime" Precision="3" />
+    <Property Name="confimDate" Type="DateTime" Precision="3" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="companyReplay" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Company" Relationship="Self.FK_Reservation_Company" FromRole="Reservation" ToRole="Company" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Reservation_Customer" FromRole="Reservation" ToRole="Customer" />
+    <NavigationProperty Name="Opinions" Relationship="Self.FK_Opinion_Reservation" FromRole="Reservation" ToRole="Opinion" />
+    <NavigationProperty Name="ReservationTerms" Relationship="Self.FK_ReservationTerm_Reservation" FromRole="Reservation" ToRole="ReservationTerm" />
+  </EntityType>
+  <EntityType Name="ReservationTerm">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="term_id" Type="Int32" />
+    <Property Name="reservation_id" Type="Int32" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Reservation" Relationship="Self.FK_ReservationTerm_Reservation" FromRole="ReservationTerm" ToRole="Reservation" />
+    <NavigationProperty Name="Term" Relationship="Self.FK_ReservationTerm_Term" FromRole="ReservationTerm" ToRole="Term" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="weight" Type="Int32" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Companies" Relationship="Self.FK_Company_Role" FromRole="Role" ToRole="Company" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Role" FromRole="Role" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CompanyTags" Relationship="Self.FK_CompanyTag_Tag" FromRole="Tag" ToRole="CompanyTag" />
+  </EntityType>
+  <EntityType Name="Term">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="startDate" Type="DateTime" Precision="0" />
+    <Property Name="endDate" Type="DateTime" Precision="0" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="company_id" Type="Int32" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Company" Relationship="Self.FK_Term_Company" FromRole="Term" ToRole="Company" />
+    <NavigationProperty Name="ReservationTerms" Relationship="Self.FK_ReservationTerm_Term" FromRole="Term" ToRole="ReservationTerm" />
+  </EntityType>
+  <Association Name="FK_Company_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompanyLocality_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="CompanyLocality" Type="Self.CompanyLocality" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CompanyLocality">
+        <PropertyRef Name="company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompanyTag_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="CompanyTag" Type="Self.CompanyTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CompanyTag">
+        <PropertyRef Name="company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Image_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reservation_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Term_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="1" />
+    <End Role="Term" Type="Self.Term" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Term">
+        <PropertyRef Name="company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompanyLocality_Locality">
+    <End Role="Locality" Type="Self.Locality" Multiplicity="1" />
+    <End Role="CompanyLocality" Type="Self.CompanyLocality" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locality">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CompanyLocality">
+        <PropertyRef Name="locality_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompanyTag_Tag">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+    <End Role="CompanyTag" Type="Self.CompanyTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CompanyTag">
+        <PropertyRef Name="tag_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reservation_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reservation">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Opinion_Reservation">
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+    <End Role="Opinion" Type="Self.Opinion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reservation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Opinion">
+        <PropertyRef Name="reservation_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReservationTerm_Reservation">
+    <End Role="Reservation" Type="Self.Reservation" Multiplicity="0..1" />
+    <End Role="ReservationTerm" Type="Self.ReservationTerm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reservation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReservationTerm">
+        <PropertyRef Name="reservation_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReservationTerm_Term">
+    <End Role="Term" Type="Self.Term" Multiplicity="0..1" />
+    <End Role="ReservationTerm" Type="Self.ReservationTerm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Term">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReservationTerm">
+        <PropertyRef Name="term_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BuilderDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Companies" EntityType="Self.Company" />
+    <EntitySet Name="CompanyLocalities" EntityType="Self.CompanyLocality" />
+    <EntitySet Name="CompanyTags" EntityType="Self.CompanyTag" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="Localities" EntityType="Self.Locality" />
+    <EntitySet Name="Opinions" EntityType="Self.Opinion" />
+    <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+    <EntitySet Name="ReservationTerms" EntityType="Self.ReservationTerm" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Tags" EntityType="Self.Tag" />
+    <EntitySet Name="Terms" EntityType="Self.Term" />
+    <AssociationSet Name="FK_Company_Role" Association="Self.FK_Company_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompanyLocality_Company" Association="Self.FK_CompanyLocality_Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="CompanyLocality" EntitySet="CompanyLocalities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompanyTag_Company" Association="Self.FK_CompanyTag_Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="CompanyTag" EntitySet="CompanyTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Image_Company" Association="Self.FK_Image_Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reservation_Company" Association="Self.FK_Reservation_Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Reservation" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Term_Company" Association="Self.FK_Term_Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Term" EntitySet="Terms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompanyLocality_Locality" Association="Self.FK_CompanyLocality_Locality">
+      <End Role="Locality" EntitySet="Localities" />
+      <End Role="CompanyLocality" EntitySet="CompanyLocalities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompanyTag_Tag" Association="Self.FK_CompanyTag_Tag">
+      <End Role="Tag" EntitySet="Tags" />
+      <End Role="CompanyTag" EntitySet="CompanyTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Role" Association="Self.FK_Customer_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reservation_Customer" Association="Self.FK_Reservation_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Reservation" EntitySet="Reservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Opinion_Reservation" Association="Self.FK_Opinion_Reservation">
+      <End Role="Reservation" EntitySet="Reservations" />
+      <End Role="Opinion" EntitySet="Opinions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReservationTerm_Reservation" Association="Self.FK_ReservationTerm_Reservation">
+      <End Role="Reservation" EntitySet="Reservations" />
+      <End Role="ReservationTerm" EntitySet="ReservationTerms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReservationTerm_Term" Association="Self.FK_ReservationTerm_Term">
+      <End Role="Term" EntitySet="Terms" />
+      <End Role="ReservationTerm" EntitySet="ReservationTerms" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
